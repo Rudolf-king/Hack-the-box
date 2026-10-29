@@ -1,6 +1,6 @@
 #Puppet
 
-![Alt Text](D:\Hack-the-box-main\P\Puppet.png)
+![Puppet](../P/Puppet.png)
 
 # Flag 1
 At firts Scan using nmap
